@@ -24,14 +24,25 @@ package cmd
 import (
 	"os"
 
+	"github.com/notAyrun/ignition/internal/downloader"
 	"github.com/spf13/cobra"
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "ignition",
-	Short: "A brief description of your application",
-	Run:   func(cmd *cobra.Command, args []string) {},
+	Short: "Generate .gitignore files for various programming languages",
+	Args:  cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Get flags and args
+		language := args[0]
+		output, _ := cmd.Flags().GetString("output")
+
+		if err := downloader.FetchGitIgnore(language, output); err != nil {
+			return err
+		}
+		return nil
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -52,5 +63,5 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.Flags().StringP("output", "o", "./", "The path to save the .gitignore file to")
 }
