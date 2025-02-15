@@ -30,11 +30,11 @@ func getGitIgnoreURL(language string) string {
 func fetchGitIgnoreContents(url string) (*http.Response, error) {
 	resp, err := http.Get(url)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch .gitignore: %v", err)
+		return nil, fmt.Errorf("failed to fetch .gitignore: %v\n", err)
 	}
 	if resp.StatusCode != http.StatusOK {
 		resp.Body.Close()
-		return nil, fmt.Errorf("receieved status code %d", resp.StatusCode)
+		return nil, fmt.Errorf("receieved status code %d\n", resp.StatusCode)
 	}
 	return resp, nil
 }
@@ -43,13 +43,13 @@ func fetchGitIgnoreContents(url string) (*http.Response, error) {
 func saveGitIgnoreFile(filePath string, body io.Reader) error {
 	file, err := os.Create(filePath)
 	if err != nil {
-		return fmt.Errorf("failed to create file: %v", err)
+		return fmt.Errorf("failed to create file: %v\n", err)
 	}
 	defer file.Close()
 
 	_, err = io.Copy(file, body)
 	if err != nil {
-		return fmt.Errorf("failed to write file: %v", err)
+		return fmt.Errorf("failed to write file: %v\n", err)
 	}
 	return nil
 }
