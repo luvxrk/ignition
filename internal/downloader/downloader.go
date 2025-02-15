@@ -69,6 +69,13 @@ func FetchGitIgnore(language, output string) error {
 		return err
 	}
 
-	fmt.Printf(".gitignore for %s downloaded successfully at %s\n", language, filePath)
+	// Only include filePath in the message if output flag is not provided
+	// Otherwise, the message basically shows:
+	// '.gitignore for %s generated successfully at .gitignore'
+	if filePath == ".gitignore" {
+		fmt.Printf(".gitignore for %s generated successfully!\n", language)
+	} else {
+		fmt.Printf(".gitignore for %s generated successfully at %s", language, filePath)
+	}
 	return nil
 }
