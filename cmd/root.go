@@ -38,6 +38,7 @@ var rootCmd = &cobra.Command{
 		language := args[0]
 		output, _ := cmd.Flags().GetString("output")
 
+		downloader.CapitalizeString(&language) // Capitalize the language string
 		if err := downloader.FetchGitIgnore(language, output); err != nil {
 			return err
 		}

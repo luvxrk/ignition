@@ -12,18 +12,17 @@ import (
 // The base URL to the repository that provides the .gitignore files
 const BaseURL = "https://raw.githubusercontent.com/github/gitignore/main/"
 
-// capitalize returns a new string with the first alphabet being capitalized and the rest being lower cased.
-func capitalize(word string) string {
-	if word == "" {
-		return word
+// Capitalize modifies the provided string such that the first alphabet is upper case and the rest is lower case.
+func CapitalizeString(s *string) {
+	if s == nil || *s == "" {
+		return
 	}
-
-	return strings.ToUpper(word[:1]) + strings.ToLower(word[1:])
+	*s = strings.ToUpper((*s)[:1]) + strings.ToLower((*s)[1:])
 }
 
 // getGitIgnoreURL constructs the URL to fetch the .gitignore file.
 func getGitIgnoreURL(language string) string {
-	return BaseURL + capitalize(language) + ".gitignore"
+	return BaseURL + language + ".gitignore"
 }
 
 // fetchGitIgnoreContents performs the HTTP GET request to retrieve the .gitignore file.
