@@ -18,7 +18,7 @@ func capitalize(word string) string {
 		return word
 	}
 
-	return strings.ToUpper(word[:1]) + word[1:]
+	return strings.ToUpper(word[:1]) + strings.ToLower(word[1:])
 }
 
 // getGitIgnoreURL constructs the URL to fetch the .gitignore file.
