@@ -35,8 +35,10 @@ make install
 Make sure `ignition` is properly installed and available for use by running:
 
 ```sh
-ignition --help
+ignition --version
 ```
+
+This should output the current version of ignition that is installed in your system.
 
 To generate a `.gitignore` file for a programming language in your current working directory( let's say Python in this case ), run the following command:
 
@@ -52,11 +54,17 @@ You can also specify the output path( `-o` flag ) which will place the `.gitigno
 ignition python -o path/to/your/directory
 ```
 
+To view a list of available programming languages for which the `.gitignore` file can be fetched, you can use the `list` command like this:
+
+```sh
+ignition list
+```
+
 ## Roadmap
 
 - [x] Implement fetching `.gitignore` files for different languages
 - [x] Add support for saving `.gitignore` to custom locations
-- [ ] Implement displaying the list of programming languages that are supported
+- [x] Implement displaying the list of programming languages that are supported
 - [ ] Create a Neovim plugin to interact with the CLI tool
 - [ ] Write detailed documentation
 
