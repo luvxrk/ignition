@@ -78,7 +78,7 @@ func FetchGitIgnore(language, output string) error {
 	if filePath == ".gitignore" {
 		fmt.Printf(".gitignore for %s generated successfully!\n", language)
 	} else {
-		fmt.Printf(".gitignore for %s generated successfully at %s", language, filePath)
+		fmt.Printf(".gitignore for %s generated successfully at %s\n", language, filePath)
 	}
 	return nil
 }
@@ -93,7 +93,7 @@ func FetchAvailableLanguages() ([]string, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Github API returned status: %s", resp.Status)
+		return nil, fmt.Errorf("Github API returned status: %s\n", resp.Status)
 	}
 
 	body, err := io.ReadAll(resp.Body)
