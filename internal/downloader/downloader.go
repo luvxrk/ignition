@@ -83,6 +83,8 @@ func FetchGitIgnore(language, output string) error {
 	return nil
 }
 
+// FetchAvailableLanguages makes an HTTP request to GitHub's API for gitignore templates
+// and returns an array of string representing the name of available programming languages.
 func FetchAvailableLanguages() ([]string, error) {
 	resp, err := http.Get(GitignoreAPI)
 	if err != nil {
