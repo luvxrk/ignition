@@ -1,6 +1,7 @@
 package downloader
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -11,6 +12,9 @@ import (
 
 // The base URL to the repository that provides the .gitignore files
 const BaseURL = "https://raw.githubusercontent.com/github/gitignore/main/"
+
+// URL to Gitignore templates provided by GitHub's API
+const GitignoreAPI = "https://api.github.com/gitignore/templates"
 
 // Capitalize modifies the provided string such that the first alphabet is upper case and the rest is lower case.
 func CapitalizeString(s *string) {
@@ -77,4 +81,28 @@ func FetchGitIgnore(language, output string) error {
 		fmt.Printf(".gitignore for %s generated successfully at %s", language, filePath)
 	}
 	return nil
+}
+
+func FetchAvailableLanguages() ([]string, error) {
+	resp, err := http.Get(GitignoreAPI)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("Github API returned status: %s", resp.Status)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	var languages []string
+	if err := json.Unmarshal(body, &languages); err != nil {
+		return nil, err
+	}
+
+	return languages, nil
 }
