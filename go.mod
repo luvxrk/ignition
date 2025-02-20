@@ -1,4 +1,4 @@
-module github.com/notAyrun/ignition
+module github.com/luvxrk/ignition
 
 go 1.23.6
 

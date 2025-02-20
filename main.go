@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/notAyrun/ignition/cmd"
+import "github.com/luvxrk/ignition/cmd"
 
 func main() {
 	cmd.Execute()

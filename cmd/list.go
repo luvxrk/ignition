@@ -22,51 +22,40 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"os"
+	"fmt"
 
 	"github.com/luvxrk/ignition/internal/downloader"
 	"github.com/spf13/cobra"
 )
 
-// Ignition CLI tool's version
-const AppVersion = "0.1.2"
-
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:     "ignition",
-	Short:   "Generate .gitignore files for various programming languages",
-	Args:    cobra.ExactArgs(1),
-	Version: AppVersion,
+// listCmd represents the list command
+var listCmd = &cobra.Command{
+	Use:   "list",
+	Short: "Display a list of available programming languages",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// Get flags and args
-		language := args[0]
-		output, _ := cmd.Flags().GetString("output")
-
-		downloader.CapitalizeString(&language) // Capitalize the language string
-		if err := downloader.FetchGitIgnore(language, output); err != nil {
+		languages, err := downloader.FetchAvailableLanguages()
+		if err != nil {
 			return err
 		}
+
+		for _, language := range languages {
+			fmt.Println(language)
+		}
+
 		return nil
 	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	err := rootCmd.Execute()
-	if err != nil {
-		os.Exit(1)
-	}
-}
-
 func init() {
+	rootCmd.AddCommand(listCmd)
+
 	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.ignition.yaml)")
+	// Cobra supports Persistent Flags which will work for this command
+	// and all subcommands, e.g.:
+	// listCmd.PersistentFlags().String("foo", "", "A help for foo")
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().StringP("output", "o", "./", "The path to save the .gitignore file to")
+	// Cobra supports local flags which will only run when this command
+	// is called directly, e.g.:
+	// listCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
