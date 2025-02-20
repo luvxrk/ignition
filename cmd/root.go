@@ -24,7 +24,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/notAyrun/ignition/internal/downloader"
+	"github.com/luvxrk/ignition/internal/downloader"
 	"github.com/spf13/cobra"
 )
 
