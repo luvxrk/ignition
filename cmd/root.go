@@ -28,11 +28,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Ignition CLI tool's version
+const AppVersion = "0.1.2"
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "ignition",
-	Short: "Generate .gitignore files for various programming languages",
-	Args:  cobra.ExactArgs(1),
+	Use:     "ignition",
+	Short:   "Generate .gitignore files for various programming languages",
+	Args:    cobra.ExactArgs(1),
+	Version: AppVersion,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// Get flags and args
 		language := args[0]
