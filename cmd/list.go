@@ -24,21 +24,25 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/luvxrk/ignition/internal/downloader"
 	"github.com/spf13/cobra"
 )
 
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Display a list of available programming languages",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		languages, err := downloader.FetchAvailableLanguages()
+		if err != nil {
+			return err
+		}
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("list called")
+		for _, language := range languages {
+			fmt.Println(language)
+		}
+
+		return nil
 	},
 }
 
