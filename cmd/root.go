@@ -29,7 +29,7 @@ import (
 )
 
 // Ignition CLI tool's version
-const AppVersion = "0.1.2"
+const AppVersion = "0.3.2"
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
